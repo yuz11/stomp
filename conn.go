@@ -248,6 +248,9 @@ func processLoop(c *Conn, writer *frame.Writer) {
 			}
 
 			if !ok {
+				log.Print("connection closed!!!")
+				c.closed = true
+				c.conn.Close()
 				err := newErrorMessage("connection closed")
 				sendError(channels, err)
 				return
